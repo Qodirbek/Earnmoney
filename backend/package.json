@@ -1,0 +1,10 @@
+{
+  "name": "earnmoney-backend",
+  "version": "1.0.0",
+  "description": "EarnMoney backend with Flask",
+  "main": "server.js",
+  "scripts": {
+    "start": "python app.py"
+  },
+  "dependencies": {}
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 Admin Panel | Buyurtmalar</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>📦 Buyurtmalar ro‘yxati</h1>
+        <a href="/">🏠 Bosh sahifa</a>
+    </header>
+
+    <!-- 🔔 Xabarlar (Flash messages) -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <section class="order-list">
+        <h2>📝 Buyurtmalar</h2>
+        {% if orders %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Buyurtma ID</th>
+                        <th>Mijoz Email</th>
+                        <th>Mahsulot</th>
+                        <th>To‘lov summasi</th>
+                        <th>Holati</th>
+                        <th>Harakatlar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.user_email }}</td>
+                        <td>{{ order.product }}</td>
+                        <td>${{ order.amount }}</td>
+                        <td>{{ order.status }}</td>
+                        <td>
+                            <form action="/admin/update_order" method="POST">
+                                <input type="hidden" name="order_id" value="{{ order.id }}">
+                                <select name="status">
+                                    <option value="To‘lov kutilmoqda" {% if order.status == "To‘lov kutilmoqda" %}selected{% endif %}>To‘lov kutilmoqda</option>
+                                    <option value="Jarayonda" {% if order.status == "Jarayonda" %}selected{% endif %}>Jarayonda</option>
+                                    <option value="Yetkazib berildi" {% if order.status == "Yetkazib berildi" %}selected{% endif %}>Yetkazib berildi</option>
+                                </select>
+                                <button type="submit">🔄 Yangilash</button>
+                            </form>
+                            <a href="/admin/delete_order/{{ order.id }}" class="delete-btn">🗑 O‘chirish</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="no-orders">🚫 Hozircha buyurtmalar yo‘q.</p>
+        {% endif %}
+    </section>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🛍 DigiMark – Eng yaxshi onlayn do‘kon</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <!-- ✅ Navbar -->
+    <header class="navbar">
+        <div class="logo">
+            <h1>🛍 DigiMark</h1>
+        </div>
+        <div class="search-bar-container">
+            <form action="/" method="GET" class="search-bar">
+                <input type="text" name="query" placeholder="🔍 Mahsulot qidirish..." required>
+                <button type="submit">Qidirish</button>
+            </form>
+        </div>
+        <div class="cart-container">
+            <a href="/cart" class="cart-icon">🛒 <span id="cart-count">0</span></a>  <!-- ✅ To‘g‘ri -->
+        </div>
+    </header>
+
+    <!-- ✅ Mahsulotlar ro‘yxati -->
+    <section class="product-container">
+        {% if products %}
+            {% for product in products %}
+            <div class="product-card">
+                <a href="{{ product.product_url }}" target="_blank">
+                    <img src="{{ product.image_url }}" alt="{{ product.title }}">
+                </a>
+                <h2 class="product-title">{{ product.title }}</h2>
+                <p class="price"><strong>$ {{ product.final_price }}</strong></p>
+                <button class="add-to-cart" onclick="addToCart('{{ product.id }}', '{{ product.title }}', {{ product.final_price }}, '{{ product.image_url }}')">
+                    🛒 Savatchaga qo‘shish
+                </button>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-products">⚠ Mahsulotlar topilmadi. Iltimos, boshqa so‘z bilan qidirib ko‘ring.</p>
+        {% endif %}
+    </section>
+
+    <!-- ✅ Sahifalash tugmalari -->
+    <div class="pagination">
+        {% if page > 1 %}
+            <a href="/?page={{ page - 1 }}" class="btn back-btn">⬅ Oldingi</a>
+        {% endif %}
+        <a href="/?page={{ page + 1 }}" class="btn next-btn">Keyingi ➡</a>
+    </div>
+
+    <!-- ✅ Scriptlar -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

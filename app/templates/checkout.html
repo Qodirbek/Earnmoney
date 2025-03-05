@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💳 To‘lov sahifasi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>💳 To‘lov sahifasi</h1>
+
+        <div class="payment-box">
+            <form action="/checkout" method="POST">
+                <input type="hidden" name="order_id" value="{{ order_id }}"> <!-- Buyurtma ID -->
+
+                <div class="form-group">
+                    <label for="description">📦 Mahsulot nomi:</label>
+                    <input type="text" id="description" name="description" value="{{ product_name }}" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="amount">💰 To‘lov summasi ($):</label>
+                    <input type="number" id="amount" name="amount" value="{{ amount }}" required readonly>
+                </div>
+
+                <p class="total-price"><strong>Jami summa:</strong> ${{ amount }}</p>
+
+                <!-- ✅ Visa, Mastercard va Payeer to‘lov tugmalari -->
+                <div class="payment-methods">
+                    <button type="submit" class="btn payeer-btn">✅ Payeer orqali to‘lov</button>
+                    <button type="button" class="btn visa-btn" onclick="alert('Visa orqali to‘lov qo‘shiladi!')">💳 Visa / Mastercard</button>
+                </div>
+            </form>
+
+            <a href="/" class="btn back-home">⬅ Bosh sahifaga qaytish</a>
+        </div>
+    </div>
+</body>
+</html>

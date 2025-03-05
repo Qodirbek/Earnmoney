@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🛒 Savatcha</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="/" class="logo">🛍 DigiMark</a>
+    </header>
+
+    <div class="cart-container">
+        <h1>🛒 Savatcha</h1>
+        <div id="cart-items"></div>
+        <h2>Jami: $<span id="total-price">0.00</span></h2>
+        <button onclick="checkout()" class="checkout-btn">💳 Buyurtma Berish</button>
+        <a href="/" class="back-home">⬅ Bosh sahifaga qaytish</a>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
